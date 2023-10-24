@@ -1,0 +1,59 @@
+{% extends "default.html" %}
+
+{% block page_title %}Lista de Clientes{% endblock page_title %}
+
+{% block content %}
+  <h1> Lista de Clientes </h1>
+  {% if customer_list %}     
+    <div class="table-responsive-sm">       
+      <table class="table table-striped-columns table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Cliente</th>
+              <th scope="col">Telefone</th>
+              
+              <th scope="col">Email</th>
+              <th scope="col">Vendedor</th>
+              <!--<th scope="col">Descrição</th>-->
+              <th scope="col">Cliente Desde</th>
+              <th scope="col">Duração</th>
+              <!--
+              <th scope="col">Criado em</th>
+              --> 
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody  class="table-group-divider">
+            {% for customer in customer_list %}
+              <tr>
+                  <th scope="row"> {{ customer.pk }} </th>
+                  <td> {{ customer.cName }} </td>
+                  <td> {{ customer.cPhone }} </td>
+                  
+                  <td> {{ customer.cEmail }} </td>
+                  <td> {{ customer.cVendedor }} </td>
+                  <!--<td> {{ customer.cDescription }} </td>-->
+                  <td> {{ customer.dContractCreated }} </td>
+                  <td> {{ customer.nContractDuration }} </td>
+                  <!--
+                  <td> {{ customer.dCreated }} </td>
+                  -->  
+                  <td>    
+                                   
+                      <a href="{% url 'customer_update' pk=customer.pk %}" class="btn btn-secondary btn-sm">Editar</a>
+                      <a href="{% url 'customer_delete' pk=customer.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                      <a href="{% url 'contact_list' %}" class="btn btn-primary btn-sm">Contatos</a>
+                      
+                  </td>                    
+              </tr>
+              {% endfor %}                    
+          </tbody>
+      </table>
+    </div>
+  {% else %}
+    <ul> Não há Clientes Cadastrados. </ul>
+  {% endif %}
+
+  <a href="{% url 'customer_create' %}" class="btn btn-success btn-sm">Novo Cliente</a>
+{% endblock content %}
